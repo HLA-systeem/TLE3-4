@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baggage Timer</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/scripts.js" rel="script"></script>
+</head>
+<body>
+<table border="3px solid black">
+    <thead>
+        <tr>
+            <td>
+                candy
+            </td>
+            <td>
+                timer
+            </td>
+            <td>
+                button
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td width="20%">
+                <img src="assets/bounty.jpg">
+            </td>
+            <td width="70%">
+                <h1>Time till next candy: <span id='countdown1'></span></h1>
+            </td> <!-- 0 30 40 50 (de 0 weer 10) 80 -->
+            <td width="10%" style="text-align: center">
+                <input id="timer1" type="button" value="Start" onclick="countdown('countdown1', 0, 80)"> <!-- bounty -->
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <img src="assets/img_twixbar.png">
+            </td>
+            <td width="70%">
+                <h1>Time till next candy: <span id='countdown2'></span></h1>
+            </td>
+            <td width="10%" style="text-align: center">
+                <input id="timer2" type="button" value="Start" onclick="countdown('countdown2', 0, 0)"> <!-- twix -->
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <img src="assets/mars.jpg">
+            </td>
+            <td width="70%">
+                <h1>Time till next candy: <span id='countdown3'></span></h1>
+            </td>
+            <td width="10%" style="text-align: center">
+                <input id="timer3" type="button" value="Start" onclick="countdown('countdown3', 0, 50)"> <!-- mars -->
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <img src="assets/milky.jpg">
+            </td>
+            <td width="70%">
+                <h1>Time till next candy: <span id='countdown4'></span></h1>
+            </td>
+            <td width="10%" style="text-align: center">
+                <input id="timer4" type="button" value="Start" onclick="countdown('countdown4', 0, 40)"> <!-- milky way -->
+            </td>
+        </tr>
+
+        <tr>
+            <td width="20%">
+                <img src="assets/snickers.jpg">
+            </td>
+            <td width="70%">
+                <h1>Time till next candy: <span id='countdown5'></span></h1>
+            </td>
+            <td width="10%" style="text-align: center">
+                <input id="timer5" type="button" value="Start" onclick="countdown('countdown5', 0, 30)"> <!-- snickers -->
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
