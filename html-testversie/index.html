@@ -11,13 +11,16 @@
     <thead>
         <tr>
             <td>
-                candy
+                Candy
             </td>
             <td>
-                timer
+                Input time
             </td>
             <td>
-                button
+                Time Remaining
+            </td>
+            <td>
+                Activate
             </td>
         </tr>
     </thead>
@@ -26,11 +29,15 @@
             <td width="20%">
                 <img src="assets/bounty.jpg">
             </td>
-            <td width="70%">
+            <td width="20%">
+            Minutes: <input id="countdown1_min" type="text"></br>
+            Seconds: <input id="countdown1_sec" type="text"></br>
+            </td>
+            <td width="50%">
                 <h1>Time till next candy: <span id='countdown1'></span></h1>
-            </td> <!-- 0 30 40 50 (de 0 weer 10) 80 -->
+            </td>
             <td width="10%" style="text-align: center">
-                <input id="timer1" type="button" value="Start" onclick="countdown('countdown1', 0, 80)"> <!-- bounty -->
+                <input id="timer1" type="button" value="Start" onclick="countdown('countdown1')"> <!-- bounty -->
             </td>
         </tr>
 
@@ -38,7 +45,12 @@
             <td width="20%">
                 <img src="assets/img_twixbar.png">
             </td>
-            <td width="70%">
+            </td>
+            <td width="20%">
+            Minutes: <input id="countdown2_min" type="text"></br>
+            Seconds: <input id="countdown2_sec" type="text"></br>
+            </td>
+            <td width="50%">
                 <h1>Time till next candy: <span id='countdown2'></span></h1>
             </td>
             <td width="10%" style="text-align: center">
@@ -50,7 +62,11 @@
             <td width="20%">
                 <img src="assets/mars.jpg">
             </td>
-            <td width="70%">
+            <td width="20%">
+            Minutes: <input id="countdown3_min" type="text"></br>
+            Seconds: <input id="countdown3_sec" type="text"></br>
+            </td>
+            <td width="50%">
                 <h1>Time till next candy: <span id='countdown3'></span></h1>
             </td>
             <td width="10%" style="text-align: center">
@@ -62,7 +78,11 @@
             <td width="20%">
                 <img src="assets/milky.jpg">
             </td>
-            <td width="70%">
+            <td width="20%">
+            Minutes: <input id="countdown4_min" type="text"></br>
+            Seconds: <input id="countdown4_sec" type="text"></br>
+            </td>
+            <td width="50%">
                 <h1>Time till next candy: <span id='countdown4'></span></h1>
             </td>
             <td width="10%" style="text-align: center">
@@ -74,7 +94,11 @@
             <td width="20%">
                 <img src="assets/snickers.jpg">
             </td>
-            <td width="70%">
+            <td width="20%">
+            Minutes: <input id="countdown5_min" type="text"></br>
+            Seconds: <input id="countdown5_sec" type="text"></br>
+            </td>
+            <td width="50%">
                 <h1>Time till next candy: <span id='countdown5'></span></h1>
             </td>
             <td width="10%" style="text-align: center">

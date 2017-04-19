@@ -1,9 +1,9 @@
-/**
- * Created by Sonny on 4/5/2017.
- */
-function countdown(element, minutes, seconds) {
+function countdown(elementId) {
     // Fetch the display element
-    var el = document.getElementById(element);
+    var el = document.getElementById(elementId);
+    console.log(elementId + "_min");
+    var minutes =  document.getElementById(elementId + "_min").value;
+    var seconds =  document.getElementById(elementId + "_sec").value;
 
     // Set the timer
     var interval = setInterval(function() {
