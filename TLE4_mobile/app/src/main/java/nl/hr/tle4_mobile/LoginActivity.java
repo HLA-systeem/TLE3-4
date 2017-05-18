@@ -13,7 +13,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText username;
     EditText password;
     Button login;
-    //TODO add remember me
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // password
                 }*/
             break;
+            case R.id.text_register:
+                Intent in = new Intent(this, RegisterActivity.class);
+                LoginActivity.this.startActivity(in);
+                break;
         }
     }
 }
