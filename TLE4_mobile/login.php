@@ -20,5 +20,5 @@
         $response["password"] = $password;
     }
     
-    echo json_encode($response); //sends JSON response
+    return json_encode($response); //sends JSON response
 ?>

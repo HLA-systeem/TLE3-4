@@ -11,5 +11,5 @@
     $response = array();
     $response["success"] = true;  //retruns "sussces" in Json
     
-    echo json_encode($response);
+    return json_encode($response); //echo gives tags
 ?>
