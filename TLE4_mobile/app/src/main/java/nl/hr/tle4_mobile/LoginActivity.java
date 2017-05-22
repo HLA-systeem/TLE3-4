@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText nameInput;
     EditText passInput;
     Button login;
+    TextView register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.nameInput = (EditText)findViewById(R.id.username);
         this.passInput = (EditText)findViewById(R.id.password);
         this.login = (Button)findViewById(R.id.button_login);
+        this.register = (TextView)findViewById(R.id.text_register);
+
         this.login.setOnClickListener(this);
+        this.register.setOnClickListener(this);
     }
 
     public void onClick(View v){
-        switch (v.getId()) {
+        switch (v.getId()){
             case R.id.button_login:
                 String username = LoginActivity.this.nameInput.getText().toString();
                 String password = LoginActivity.this.passInput.getText().toString();
@@ -59,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             else{
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Incorrect password or username.")
+                                builder.setMessage("Incorrect username or password.")
                                         .setNegativeButton("Retry", null)
                                         .create()
                                         .show();
