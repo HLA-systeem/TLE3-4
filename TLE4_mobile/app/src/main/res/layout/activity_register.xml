@@ -33,12 +33,11 @@
 
 
                 <EditText
-                    android:id="@+id/username"
-                    android:maxLines="1"
+                    android:id="@+id/input_username"
                     android:layout_width="fill_parent"
-                    android:layout_height = "wrap_content"
+                    android:layout_height="wrap_content"
                     android:hint="Username"
-                    />
+                    android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
 
@@ -47,13 +46,12 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/password"
-                    android:maxLines="1"
+                    android:id="@+id/input_password"
                     android:layout_width="fill_parent"
-                    android:layout_height = "wrap_content"
-                    android:inputType="textPassword"
+                    android:layout_height="wrap_content"
                     android:hint="Password"
-                    />
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -61,13 +59,12 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/password"
-                    android:maxLines="1"
+                    android:id="@+id/input_password_again"
                     android:layout_width="fill_parent"
-                    android:layout_height = "wrap_content"
-                    android:inputType="textPassword"
+                    android:layout_height="wrap_content"
                     android:hint="Repeat Password"
-                    />
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
             </android.support.design.widget.TextInputLayout>
 
                 <Button
