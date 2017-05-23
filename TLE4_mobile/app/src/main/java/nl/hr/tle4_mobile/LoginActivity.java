@@ -3,6 +3,8 @@ package nl.hr.tle4_mobile;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private NotificationCompat.Builder noti;
     private int notiID;
+    private Uri notiSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.noti = new NotificationCompat.Builder(this);
         this.notiID = 999;
         this.noti.setAutoCancel(true);
+        this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         this.showNotification();
     }
 
@@ -104,10 +108,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.noti.setWhen(System.currentTimeMillis());
         this.noti.setContentTitle("You're luggage wil arrive soon!");
         this.noti.setContentText("Press this to see the timer.");
+        this.noti.setSound(this.notiSound);
 
         Intent in = new Intent(this, TimerActivity.class);
         PendingIntent inPen = PendingIntent.getActivity(this, 0 ,in, PendingIntent.FLAG_UPDATE_CURRENT);
         this.noti.setContentIntent(inPen);
+
+
 
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         nm.notify(this.notiID, this.noti.build() );
