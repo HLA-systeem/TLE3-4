@@ -1,9 +1,12 @@
 package nl.hr.tle4_mobile;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,10 +22,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText nameInput;
-    EditText passInput;
-    Button login;
-    TextView register;
+    private EditText nameInput;
+    private EditText passInput;
+    private Button login;
+    private TextView register;
+
+    private NotificationCompat.Builder noti;
+    private int notiID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         this.login.setOnClickListener(this);
         this.register.setOnClickListener(this);
+
+        this.noti = new NotificationCompat.Builder(this);
+        this.notiID = 999;
+        this.noti.setAutoCancel(true);
+        this.showNotification();
     }
 
     public void onClick(View v){
@@ -85,5 +96,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LoginActivity.this.startActivity(in);
                 break;
         }
+    }
+
+    public void showNotification(){
+        this.noti.setSmallIcon(R.mipmap.ic_launcher);
+        this.noti.setTicker("So this is what they call a ticker.");
+        this.noti.setWhen(System.currentTimeMillis());
+        this.noti.setContentTitle("You're luggage wil arrive soon!");
+        this.noti.setContentText("Press this to see the timer.");
+
+        Intent in = new Intent(this, TimerActivity.class);
+        PendingIntent inPen = PendingIntent.getActivity(this, 0 ,in, PendingIntent.FLAG_UPDATE_CURRENT);
+        this.noti.setContentIntent(inPen);
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(this.notiID, this.noti.build() );
+
     }
 }
