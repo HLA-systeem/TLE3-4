@@ -72,6 +72,7 @@ public class LoginRequest extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String result){
+        System.out.println(result);
         this.activityRef.get().setLoginResults(result);
     }
 

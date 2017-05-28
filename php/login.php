@@ -8,7 +8,7 @@
         $query = "SELECT * FROM Travelers WHERE username like '$username'' AND password like '$password'"; //looks for matches in the db
         $result = mysqli_query($con, $query);
 
-        if(mysqli_num_rows($result == 1)){
+        if($result && mysqli_num_rows($result) == 1){
 
             $response = array();  
             
@@ -26,5 +26,5 @@
 
     }
     
-    return json_encode($response); //sends JSON response
+    echo json_encode($response); //sends JSON response
 ?>

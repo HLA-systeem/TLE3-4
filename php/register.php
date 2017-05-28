@@ -14,5 +14,5 @@
         }
     }
     
-    return json_encode($response); //echo gives tags
+    echo json_encode($response); //echo gives tags
 ?>

@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.notiID = 999;
         this.noti.setAutoCancel(true);
         this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        this.showNotification();
+        //this.showNotification();
     }
 
     public void onClick(View v){
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LoginRequest req = new LoginRequest(LoginActivity.this);
                 req.execute(type,username,password);
 
-                System.out.println(this.loginResults);
+
                 break;
             case R.id.text_register:
                 Intent in = new Intent(this, RegisterActivity.class);
