@@ -66,9 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String username = LoginActivity.this.nameInput.getText().toString();
                 String password = LoginActivity.this.passInput.getText().toString();
 
-                String type = "login";
                 LoginRequest req = new LoginRequest(LoginActivity.this);
-                req.execute(type,username,password);
+                req.execute(username,password);
 
 
                 break;
