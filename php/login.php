@@ -5,7 +5,7 @@
         $username = $_POST["username"]; //recieves the data
         $password = $_POST["password"];
         
-        $query = "SELECT * FROM Travelers WHERE username like '$username'' AND password like '$password'"; //looks for matches in the db
+        $query = "SELECT * FROM Travelers WHERE username like '$username' AND password like '$password'"; //looks for matches in the db
         $result = mysqli_query($con, $query);
 
         if($result && mysqli_num_rows($result) == 1){
