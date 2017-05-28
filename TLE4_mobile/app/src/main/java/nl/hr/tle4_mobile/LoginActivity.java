@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private int notiID;
     private Uri notiSound;
 
+    private String loginResults;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,36 +66,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 String username = LoginActivity.this.nameInput.getText().toString();
                 String password = LoginActivity.this.passInput.getText().toString();
 
-                Response.Listener<String> responseListener = new Response.Listener<String>(){
+                String type = "login";
+                LoginRequest req = new LoginRequest(LoginActivity.this);
+                req.execute(type,username,password);
 
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            boolean succes = json.getBoolean("succes");
-
-                            if(succes == true){
-                                Intent in = new Intent(LoginActivity.this, TimerActivity.class);
-                                LoginActivity.this.startActivity(in);
-                            }
-
-                            else{
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Incorrect username or password.")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                LoginRequest request = new LoginRequest(username,password,responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(request);
+                System.out.println(this.loginResults);
                 break;
             case R.id.text_register:
                 Intent in = new Intent(this, RegisterActivity.class);
@@ -119,5 +96,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         nm.notify(this.notiID, this.noti.build() );
 
+    }
+
+    public void setLoginResults(String results){
+        this.loginResults = results;
     }
 }

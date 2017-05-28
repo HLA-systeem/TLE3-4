@@ -1,24 +1,84 @@
 package nl.hr.tle4_mobile;
 
-import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
+import android.os.AsyncTask;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
-public class RegisterRequest extends StringRequest{ //gets a string response from the server after a request.
-    private static final String REQUEST_URL = "https://brusque-millimeters.000webhostapp.com/register.php";
-    private Map<String, String> params;
 
-    public RegisterRequest(String username, String password, Response.Listener<String> listener){
-        super(Method.POST, REQUEST_URL, listener, null);
-        this.params = new HashMap<>();
-        this.params.put("username",username);
-        this.params.put("password",password);
+public class RegisterRequest extends AsyncTask<String,Void,String> {
+    private WeakReference<RegisterActivity> activityRef;
+    String registerURL = "https://brusque-millimeters.000webhostapp.com/register.php";
+
+    public RegisterRequest(RegisterActivity context){
+        this.activityRef = new WeakReference<RegisterActivity>(context);
     }
 
     @Override
-    public Map<String, String> getParams(){
-        return this.params;
+    protected String doInBackground(String... params) {
+        String username = params[0];
+        String password = params[1];
+
+        try {
+            URL url = new URL(this.registerURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+
+            OutputStream outputStream = con.getOutputStream();
+            BufferedWriter bufw = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+            String postData = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
+                    URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
+            bufw.write(postData);
+            bufw.flush();
+            bufw.close();
+            outputStream.close();
+
+            InputStream inputStream = con.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"iso-8859-1"));
+            String result="";
+            String line="";
+            while((line = bufferedReader.readLine())!= null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+
+            con.disconnect();
+
+            return result;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPreExecute(){
+
+    }
+
+    @Override
+    protected void onPostExecute(String result){
+        this.activityRef.get().setRegisterResults(result);
+    }
+
+    @Override
+    protected void onProgressUpdate(Void...values){
+        super.onProgressUpdate(values);
     }
 }
