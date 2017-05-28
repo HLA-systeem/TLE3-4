@@ -10,19 +10,11 @@
 
         if($result){
             if(mysqli_num_rows($result) == 1){
-
-                $response = array();  
-                
-                while(mysqli_stmt_fetch($result)){ //returns the data
-                    $response["success"] = true;  
-                    $response["username"] = $username;
-                    $response["password"] = $password;
-                }
-                
+                $data = mysqli_fetch_assoc($result);
+                $response = $data["username"];
             }
             else{
-                $response = $query;
-                //$response = "Wrong username or password";
+                $response = "Wrong username or password";
             }
         }
     }
