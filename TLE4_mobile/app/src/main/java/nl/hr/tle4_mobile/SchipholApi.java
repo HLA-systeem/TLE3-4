@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -16,7 +17,13 @@ import java.net.URL;
  * Created by sonny on 5/29/2017.
  */
 
-public class DataHttp extends AsyncTask<String, Void, String> {
+public class SchipholApi extends AsyncTask<String, Void, String> {
+    private WeakReference<FlightStatusActivity> flightActivity;
+
+    public SchipholApi(FlightStatusActivity activity){
+        flightActivity = new WeakReference<FlightStatusActivity>(activity);
+    }
+
     @Override
     protected String doInBackground(String... urls) {
 
@@ -76,12 +83,12 @@ public class DataHttp extends AsyncTask<String, Void, String> {
                 String test = jsonObject1.getString("checkinAllocations");
 
                 // get baggage belt from an array and convert it into string
-                JSONObject bc = jsonObject1.getJSONObject("baggageClaim");
-                String bc1 = bc.getString("belts");
-                JSONArray bc2 = new JSONArray(bc1);
-                String bc3 = bc2.getString(0);
+                JSONObject baggageObject = jsonObject1.getJSONObject("baggageClaim");
+                String baggageBelt = baggageObject.getString("belts");
+                JSONArray baggageArray = new JSONArray(baggageBelt);
+                String belt = baggageArray.getString(0);
 
-                Log.i("flightinfo", bc3);
+                Log.i("flightinfo", belt);
                 Log.i("flightinfo", estimatedTimeOnBelt);
                 Log.i("flightinfo;", flightname);
 
@@ -90,6 +97,12 @@ public class DataHttp extends AsyncTask<String, Void, String> {
                 }else {
                     Log.i("flightinfo", test);
                 }
+
+                results = "Flight name: " + flightname + "\r\n"
+                        + "Baggage belt: " + belt + "\r\n"
+                        + "Estimated time on belt: " + estimatedTimeOnBelt;
+
+                flightActivity.get().setInfo(results);
 
             }
 
