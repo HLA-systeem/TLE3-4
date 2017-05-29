@@ -1,5 +1,7 @@
 package nl.hr.tle4_mobile;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -56,6 +58,8 @@ public class LoginRequest extends AsyncTask<String,Void,String> {
 
             con.disconnect();
 
+            //result.replace("\"\"","");
+
             return result;
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -73,7 +77,12 @@ public class LoginRequest extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result){
         System.out.println(result);
+        System.out.println("\"" + this.activityRef.get().getUsername() + "\"");
         this.activityRef.get().setLoginResults(result);
+        if(result.equals("\"" + this.activityRef.get().getUsername() + "\"")){
+            Intent in = new Intent(this.activityRef.get(), TimerActivity.class);
+            this.activityRef.get().startActivity(in);
+        }
     }
 
     @Override

@@ -28,7 +28,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                 RegisterRequest req = new RegisterRequest(RegisterActivity.this);
                 req.execute(username,password);
-                System.out.println(RegisterActivity.this.registerResults);
             }
         });
     }

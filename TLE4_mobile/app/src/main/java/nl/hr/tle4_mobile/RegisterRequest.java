@@ -1,5 +1,6 @@
 package nl.hr.tle4_mobile;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -75,7 +76,8 @@ public class RegisterRequest extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result){
         System.out.println(result);
-        this.activityRef.get().setRegisterResults(result);
+        Intent in = new Intent(this.activityRef.get(), TimerActivity.class);
+        this.activityRef.get().startActivity(in);
     }
 
     @Override

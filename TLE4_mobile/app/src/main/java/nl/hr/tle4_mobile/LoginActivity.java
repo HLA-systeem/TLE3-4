@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private int notiID;
     private Uri notiSound;
 
+    private String username;
+    private String password;
     private String loginResults;
 
     @Override
@@ -63,14 +65,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         switch (v.getId()){
             case R.id.button_login:
-                String username = LoginActivity.this.nameInput.getText().toString();
-                String password = LoginActivity.this.passInput.getText().toString();
+                LoginActivity.this.username = LoginActivity.this.nameInput.getText().toString();
+                LoginActivity.this.password = LoginActivity.this.passInput.getText().toString();
 
                 LoginRequest req = new LoginRequest(LoginActivity.this);
-                req.execute(username,password);
-
-
+                req.execute(LoginActivity.this.username,LoginActivity.this.password);
                 break;
+
             case R.id.text_register:
                 Intent in = new Intent(this, RegisterActivity.class);
                 LoginActivity.this.startActivity(in);
@@ -99,5 +100,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void setLoginResults(String results){
         this.loginResults = results;
+    }
+
+    public String getUsername(){
+        return this.username;
     }
 }
