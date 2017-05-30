@@ -17,7 +17,7 @@ public class FlightStatusActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flight_status);
 
         tv = (TextView)findViewById(R.id.textView);
-        DataHttp as = new DataHttp();
+        SchipholApi as = new SchipholApi(this);
         as.execute("https://api.schiphol.nl/public-flights/flights?app_id=51e64f75&app_key=e7aa5d807f1406029fe3b79dd35e65ef&flightname=KL0808&includedelays=false&page=0&sort=%2Bscheduletime");
     }
 
