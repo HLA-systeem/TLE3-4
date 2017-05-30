@@ -12,12 +12,13 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by sonny on 5/29/2017.
  */
 
-public class SchipholApi extends AsyncTask<String, Void, String> {
+public class SchipholApi extends AsyncTask<String, Void, ArrayList<String>> {
     private WeakReference<FlightStatusActivity> flightActivity;
 
     public SchipholApi(FlightStatusActivity activity){
@@ -25,12 +26,13 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... urls) {
+    protected ArrayList<String> doInBackground(String... urls) {
 
-        String result ="";
+        ArrayList<String> result = new ArrayList<String>();
+        result.add("");
+
         URL url;
         HttpURLConnection urlConnection = null;
-
         try {
             url = new URL(urls[0]);
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -47,7 +49,7 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
 
             while(data != -1){
                 char current  = (char)data;
-                result += current;
+                result.add( Integer.toString(current));
                 data = reader.read();
             }
             reader.close();
@@ -62,14 +64,14 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(ArrayList<String> result) {
 
         super.onPostExecute(result);
-
-        String results;
-
+        JSONObject jsonObject = new JSONObject();
         try {
-            JSONObject jsonObject = new JSONObject(result);
+            for(String item: result){
+                jsonObject += (JSONObject) item;
+            };
             String flight = jsonObject.getString("flights");
 
             JSONArray arr = new JSONArray(flight);
@@ -98,11 +100,11 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
                     Log.i("flightinfo", test);
                 }
 
-                results = "Flight name: " + flightname + "\r\n"
-                        + "Baggage belt: " + belt + "\r\n"
-                        + "Estimated time on belt: " + estimatedTimeOnBelt;
+                result.add("Flight name: " + flightname + "\r\n"
+                        + "Baggage belt number: " + belt + "\r\n"
+                        + "Estimated time on belt: " + estimatedTimeOnBelt);
 
-                flightActivity.get().setInfo(results);
+                flightActivity.get().setInfo(estimatedTimeOnBelt);
 
             }
 
