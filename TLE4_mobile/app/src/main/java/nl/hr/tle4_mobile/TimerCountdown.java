@@ -2,6 +2,7 @@ package nl.hr.tle4_mobile;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.TextView;
 
 public class TimerCountdown implements Runnable {
@@ -20,10 +21,11 @@ public class TimerCountdown implements Runnable {
     @Override
     public void run() {
         TimerCountdown.running = true;
-
-        if (this.time < 0) {
+        System.out.println(this.time);
+        if (this.time > 0) {
             this.timerView.setText(Double.toString(this.time));
             this.time -= 00.1;
+            Log.i("timer", Double.toString(this.time));
             handler.postDelayed(this, 1);
         } else {
             TimerCountdown.running = false;

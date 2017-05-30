@@ -80,7 +80,7 @@ public class LoginRequest extends AsyncTask<String,Void,String> {
         System.out.println("\"" + this.activityRef.get().getUsername() + "\"");
         this.activityRef.get().setLoginResults(result);
         if(result.equals("\"" + this.activityRef.get().getUsername() + "\"")){
-            Intent in = new Intent(this.activityRef.get(), TimerActivity.class);
+            Intent in = new Intent(this.activityRef.get(), FlightStatusActivity.class);
             this.activityRef.get().startActivity(in);
         }
     }

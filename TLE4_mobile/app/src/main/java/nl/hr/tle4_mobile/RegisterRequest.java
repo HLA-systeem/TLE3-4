@@ -76,7 +76,7 @@ public class RegisterRequest extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result){
         System.out.println(result);
-        Intent in = new Intent(this.activityRef.get(), TimerActivity.class);
+        Intent in = new Intent(this.activityRef.get(), FlightStatusActivity.class);
         this.activityRef.get().startActivity(in);
     }
 
