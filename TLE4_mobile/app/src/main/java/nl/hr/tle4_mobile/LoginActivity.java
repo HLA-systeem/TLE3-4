@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.noti.setContentText("Press this to see the timer.");
         this.noti.setSound(this.notiSound);
 
-        Intent in = new Intent(this, TimerActivity.class);
+        Intent in = new Intent(this, FlightStatusActivity.class);
         PendingIntent inPen = PendingIntent.getActivity(this, 0 ,in, PendingIntent.FLAG_UPDATE_CURRENT);
         this.noti.setContentIntent(inPen);
 
