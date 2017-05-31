@@ -64,7 +64,7 @@ public class FlightStatusActivity extends AppCompatActivity{
 
             @Override
             public void onFinish() {
-                FlightStatusActivity.this.timer2.setText("Your baggage will arrive now.");
+                FlightStatusActivity.this.timer2.setText("The other person's baggage will arrive now.");
             }
         };
 
