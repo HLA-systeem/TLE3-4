@@ -20,7 +20,7 @@
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".TimerActivity"/>
+
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".FlightStatusActivity">
             <intent-filter>
