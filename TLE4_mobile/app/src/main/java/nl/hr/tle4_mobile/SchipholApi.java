@@ -78,7 +78,7 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject1 = arr.getJSONObject(i);
 
                 String flightname = jsonObject1.getString("flightName");
-                String landingTime = jsonObject1.getString("estimatedLandingTime");
+//                String landingTime = jsonObject1.getString("estimatedLandingTime");
                 String estimatedTimeOnBelt = jsonObject1.getString("expectedTimeOnBelt");
                 String test = jsonObject1.getString("checkinAllocations");
 
@@ -88,15 +88,15 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
                 JSONArray baggageArray = new JSONArray(baggageBelt);
                 String belt = baggageArray.getString(0);
 
-                Log.i("flightinfo", belt);
-                Log.i("flightinfo", estimatedTimeOnBelt);
-                Log.i("flightinfo;", flightname);
-
-                if(test == "null") {
-                    Log.i("flightinfo", "test came back null");
-                }else {
-                    Log.i("flightinfo", test);
-                }
+//                Log.i("flightinfo", belt);
+//                Log.i("flightinfo", estimatedTimeOnBelt);
+//                Log.i("flightinfo;", flightname);
+//
+//                if(test == "null") {
+//                    Log.i("flightinfo", "test came back null");
+//                }else {
+//                    Log.i("flightinfo", test);
+//                }
 
                 results = "Flight name: " + flightname + "\r\n"
                         + "Baggage belt: " + belt + "\r\n"

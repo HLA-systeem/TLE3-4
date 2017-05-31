@@ -9,8 +9,10 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class FlightStatusActivity extends AppCompatActivity{
@@ -24,6 +26,7 @@ public class FlightStatusActivity extends AppCompatActivity{
     CountDownTimer countDown;
     TextView timer2;
     CountDownTimer countDown2;
+    TextView flightStats;
 
     private NotificationCompat.Builder noti;
     private int notiID;
@@ -37,7 +40,11 @@ public class FlightStatusActivity extends AppCompatActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_flight_status);
+        setContentView(R.layout.activity_flightstatus);
+        Button actButt = (Button)findViewById(R.id.actButt);
+
+        Intent i = getIntent();
+        flightName = i.getStringExtra("flight number");
 
         SchipholApi as = new SchipholApi(this);
         as.execute("https://api.schiphol.nl/public-flights/flights?app_id=51e64f75&app_key=e7aa5d807f1406029fe3b79dd35e65ef&flightname=" + this.flightName + "&includedelays=false&page=0&sort=%2Bscheduletime");
@@ -51,16 +58,20 @@ public class FlightStatusActivity extends AppCompatActivity{
     }
 
     public void setInfo(String results){
+
         this.schipholData = results;
+        this.flightStats = (TextView)findViewById(R.id.FlightStatus);
+        flightStats.setText(this.schipholData);
+
     }
 
     private void startTimers(){
-        this.timer= (TextView)findViewById(R.id.text_timer);
+        this.timer= (TextView)findViewById(R.id.yourTime);
         this.countDown = new CountDownTimer(60*4000,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
-                FlightStatusActivity.this.timer.setText("" + (millisUntilFinished  / 1000) + " Seconds");
+                FlightStatusActivity.this.timer.setText("Estimated luggage arrival: \r\n" + (millisUntilFinished  / 1000) + " Seconds");
             }
 
             @Override
@@ -71,12 +82,12 @@ public class FlightStatusActivity extends AppCompatActivity{
         };
 
 
-        this.timer2= (TextView)findViewById(R.id.text_timer2);
+        this.timer2= (TextView)findViewById(R.id.othersTime);
         this.countDown2 = new CountDownTimer(60*2000,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
-                FlightStatusActivity.this.timer2.setText("" + (millisUntilFinished  / 1000) + " Seconds");
+                FlightStatusActivity.this.timer2.setText("Others estimated luggage waiting time: \r\n" + (millisUntilFinished  / 1000) + " Seconds");
             }
 
             @Override
@@ -93,7 +104,7 @@ public class FlightStatusActivity extends AppCompatActivity{
         this.noti.setSmallIcon(R.mipmap.ic_launcher);
         this.noti.setTicker("So this is what they call a ticker.");
         this.noti.setWhen(System.currentTimeMillis());
-        this.noti.setContentTitle("You're luggage is arriving!");
+        this.noti.setContentTitle("Your luggage is arriving!");
         this.noti.setContentText("Press this to see the timer.");
         this.noti.setSound(this.notiSound);
 
@@ -107,4 +118,10 @@ public class FlightStatusActivity extends AppCompatActivity{
         nm.notify(this.notiID, this.noti.build() );
 
     }
+
+    public void findAct(View v){
+        Intent i = new Intent(this, ActivietiesActivity.class);
+        startActivity(i);
+    }
+
 }
