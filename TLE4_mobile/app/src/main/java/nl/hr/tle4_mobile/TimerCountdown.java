@@ -21,7 +21,7 @@ public class TimerCountdown implements Runnable {
     public void run() {
         TimerCountdown.running = true;
 
-        if (this.time < 0) {
+        if (this.time > 0) {
             this.timerView.setText(Double.toString(this.time));
             this.time -= 00.1;
             handler.postDelayed(this, 1);
