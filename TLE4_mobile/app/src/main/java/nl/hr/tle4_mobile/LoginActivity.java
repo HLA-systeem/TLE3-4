@@ -29,10 +29,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login;
     private TextView register;
 
-    private NotificationCompat.Builder noti;
-    private int notiID;
-    private Uri notiSound;
-
     private String username;
     private String password;
     private String loginResults;
@@ -54,12 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         this.login.setOnClickListener(this);
         this.register.setOnClickListener(this);
-
-        this.noti = new NotificationCompat.Builder(this);
-        this.notiID = 999;
-        this.noti.setAutoCancel(true);
-        this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //this.showNotification();
     }
 
     public void onClick(View v){
@@ -79,24 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    public void showNotification(){
-        this.noti.setSmallIcon(R.mipmap.ic_launcher);
-        this.noti.setTicker("So this is what they call a ticker.");
-        this.noti.setWhen(System.currentTimeMillis());
-        this.noti.setContentTitle("You're luggage wil arrive soon!");
-        this.noti.setContentText("Press this to see the timer.");
-        this.noti.setSound(this.notiSound);
 
-        Intent in = new Intent(this, FlightStatusActivity.class);
-        PendingIntent inPen = PendingIntent.getActivity(this, 0 ,in, PendingIntent.FLAG_UPDATE_CURRENT);
-        this.noti.setContentIntent(inPen);
-
-
-
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(this.notiID, this.noti.build() );
-
-    }
 
     public void setLoginResults(String results){
         this.loginResults = results;

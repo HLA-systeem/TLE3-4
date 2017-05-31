@@ -1,8 +1,14 @@
 package nl.hr.tle4_mobile;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -19,6 +25,11 @@ public class FlightStatusActivity extends AppCompatActivity{
     TextView timer2;
     CountDownTimer countDown2;
 
+    private NotificationCompat.Builder noti;
+    private int notiID;
+    private Uri notiSound;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +41,11 @@ public class FlightStatusActivity extends AppCompatActivity{
 
         SchipholApi as = new SchipholApi(this);
         as.execute("https://api.schiphol.nl/public-flights/flights?app_id=51e64f75&app_key=e7aa5d807f1406029fe3b79dd35e65ef&flightname=" + this.flightName + "&includedelays=false&page=0&sort=%2Bscheduletime");
+
+        this.noti = new NotificationCompat.Builder(this);
+        this.notiID = 999;
+        this.noti.setAutoCancel(true);
+        this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         this.startTimers();
     }
@@ -49,7 +65,8 @@ public class FlightStatusActivity extends AppCompatActivity{
 
             @Override
             public void onFinish() {
-                FlightStatusActivity.this.timer.setText("Your baggage will arrive now.");
+                FlightStatusActivity.this.timer.setText("Your luggage will arrive now.");
+                FlightStatusActivity.this.showNotification();
             }
         };
 
@@ -64,11 +81,30 @@ public class FlightStatusActivity extends AppCompatActivity{
 
             @Override
             public void onFinish() {
-                FlightStatusActivity.this.timer2.setText("The other person's baggage will arrive now.");
+                FlightStatusActivity.this.timer2.setText("The other person's luggage will arrive now.");
             }
         };
 
         this.countDown.start();
         this.countDown2.start();
+    }
+
+    public void showNotification(){
+        this.noti.setSmallIcon(R.mipmap.ic_launcher);
+        this.noti.setTicker("So this is what they call a ticker.");
+        this.noti.setWhen(System.currentTimeMillis());
+        this.noti.setContentTitle("You're luggage is arriving!");
+        this.noti.setContentText("Press this to see the timer.");
+        this.noti.setSound(this.notiSound);
+
+        Intent in = new Intent(this, FlightStatusActivity.class);
+        PendingIntent inPen = PendingIntent.getActivity(this, 0 ,in, PendingIntent.FLAG_UPDATE_CURRENT);
+        this.noti.setContentIntent(inPen);
+
+
+
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(this.notiID, this.noti.build() );
+
     }
 }
