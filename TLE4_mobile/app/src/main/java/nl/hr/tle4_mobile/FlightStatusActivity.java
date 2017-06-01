@@ -67,7 +67,7 @@ public class FlightStatusActivity extends AppCompatActivity{
 
     private void startTimers(){
         this.timer= (TextView)findViewById(R.id.yourTime);
-        this.countDown = new CountDownTimer(60*4000,1000){
+        this.countDown = new CountDownTimer(60*500,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {

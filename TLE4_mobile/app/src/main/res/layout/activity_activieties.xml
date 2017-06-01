@@ -23,17 +23,17 @@
             android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
             android:layout_marginLeft="14dp" android:layout_marginStart="14dp" android:layout_marginTop="35dp"
             android:id="@+id/taxi" android:textSize="18sp"/>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp" android:id="@+id/taxiButt" android:layout_below="@+id/taxi"
-            android:layout_centerHorizontal="true" android:background="@android:drawable/ic_menu_call"
-            android:backgroundTint="@android:color/black" android:onClick="callTaxi" android:visibility="visible"
-            android:elevation="24dp"/>
     <TextView
             android:text="Take a virtual reality tour of your destination at"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/taxiButt"
-            android:layout_centerHorizontal="true" android:layout_marginTop="51dp" android:id="@+id/vr_tour"
-            android:textSize="18sp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="165dp" android:id="@+id/vr_tour"
+            android:textSize="18sp" android:layout_below="@+id/taxi" android:layout_alignRight="@+id/taxi"
+            android:layout_alignEnd="@+id/taxi"/>
+    <Button
+            android:text="call Taxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_below="@+id/taxi" android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp" android:id="@+id/taxiButton" android:textSize="18sp"
+            android:onClick="makeCall"/>
 </RelativeLayout>

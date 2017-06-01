@@ -60,6 +60,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 LoginRequest req = new LoginRequest(LoginActivity.this);
                 req.execute(LoginActivity.this.username,LoginActivity.this.password);
+                Intent i = new Intent(this, SearchActivity.class);
+                startActivity(i);
                 break;
 
             case R.id.text_register:

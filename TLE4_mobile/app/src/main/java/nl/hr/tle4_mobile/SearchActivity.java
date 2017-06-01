@@ -18,13 +18,23 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         search = (Button)findViewById(R.id.search);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flightNumb = (EditText)findViewById(R.id.flightNum);
+                Intent i = new Intent(SearchActivity.this, FlightStatusActivity.class);
+                i.putExtra("flight number", flightNumb.getText().toString().replace(" ",""));
+                startActivity(i);
+            }
+        });
+
     }
 
-     public void searchFlight(View v){
-        flightNumb = (EditText)findViewById(R.id.flightNum);
-
-         Intent i = new Intent(this, FlightStatusActivity.class);
-         i.putExtra("flight number", flightNumb.getText().toString().replace(" ",""));
-         startActivity(i);
-     }
+//     public void searchFlight(View v){
+//        flightNumb = (EditText)findViewById(R.id.flightNum);
+//         Intent i = new Intent(this, FlightStatusActivity.class);
+//         i.putExtra("flight number", flightNumb.getText().toString().replace(" ",""));
+//         startActivity(i);
+//     }
 }
