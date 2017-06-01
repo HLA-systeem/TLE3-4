@@ -20,10 +20,11 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-     public void searchFlight(View v){
+    public void findFlight(View v){
         flightNumb = (EditText)findViewById(R.id.flightNum);
-         Intent i = new Intent(this, FlightStatusActivity.class);
-         i.putExtra("flight number", flightNumb.getText().toString().replace(" ",""));
-         startActivity(i);
-     }
+        Intent i = new Intent(SearchActivity.this, FlightStatusActivity.class);
+        i.putExtra("flight number", flightNumb.getText().toString().replace(" ",""));
+        startActivity(i);
+    }
+
 }
