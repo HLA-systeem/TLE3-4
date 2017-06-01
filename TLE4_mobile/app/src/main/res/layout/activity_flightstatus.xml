@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9370DB">
 
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/FlightStatus" android:layout_weight="1"
-            android:layout_marginLeft="12dp" android:layout_marginBottom="15dp" android:layout_marginTop="15dp"
-            />
+        android:id="@+id/FlightStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:text="[Hier komt vlucht data]"
+        android:textColor="#FFFFF0"
+        android:textStyle="bold"/>
 
 
     <TextView
-            android:text="TextView"
-            android:layout_height="wrap_content"
-            android:id="@+id/yourTime"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/FlightStatus" android:layout_alignLeft="@+id/FlightStatus"
-            android:layout_alignStart="@+id/FlightStatus" android:layout_marginTop="166dp"/>
+        android:id="@+id/yourTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="TextView"
+        android:textColor="#FFFFF0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/FlightStatus"
+        android:layout_alignLeft="@+id/FlightStatus"
+        android:layout_alignStart="@+id/FlightStatus" />
+
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/othersTime"
-            android:layout_alignTop="@+id/yourTime" android:layout_alignLeft="@+id/yourTime"
-            android:layout_alignStart="@+id/yourTime" android:layout_marginTop="112dp"/>
+        android:id="@+id/othersTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="97dp"
+        android:text="TextView"
+        android:textColor="#FFFFF0"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/yourTime"
+        android:layout_alignLeft="@+id/yourTime"
+        android:layout_alignStart="@+id/yourTime" />
+
     <Button
-            android:text="Search for activities"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" android:layout_marginBottom="20dp" android:id="@+id/actButt"
-            android:onClick="findAct"/>
+        android:id="@+id/actButt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFF0"
+        android:onClick="findAct"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="Search for activities" />
+
 </RelativeLayout>

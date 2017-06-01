@@ -2,6 +2,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:background="#9370DB"
         android:id="@+id/activity_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,22 +13,35 @@
         tools:context="nl.hr.tle4_mobile.SearchActivity">
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" android:layout_marginTop="17dp" android:id="@+id/Flightname"
-            android:text="@string/flight_number" android:textSize="24sp"/>
+        android:id="@+id/Flightname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:text="@string/flight_number"
+        android:textColor="#FFFFF0"
+        android:textSize="24sp"
+        android:textStyle="bold" />
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters|textCapWords|textCapSentences|textPersonName"
             android:ems="10"
-            android:layout_below="@+id/Flightname" android:layout_centerHorizontal="true"
-            android:layout_marginTop="29dp" android:id="@+id/flightNum" android:hint="KL1234"
-            android:textAlignment="center" android:capitalize="characters" android:textAllCaps="true"/>
+            android:layout_below="@+id/Flightname"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="29dp"
+            android:id="@+id/flightNum"
+            android:hint="KL1234"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#FFFFF0"
+            android:textStyle="bold"/>
     <Button
             android:text="Search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" android:id="@+id/search" android:onClick="findFlight"
+            android:background="#FFFFF0"
             android:clickable="false"/>
 </RelativeLayout>

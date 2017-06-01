@@ -41,7 +41,6 @@ public class FlightStatusActivity extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_flightstatus);
-        Button actButt = (Button)findViewById(R.id.actButt);
 
         Intent i = getIntent();
         flightName = i.getStringExtra("flight number");
