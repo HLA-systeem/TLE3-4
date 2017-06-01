@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -30,6 +31,10 @@ public class RegisterActivity extends AppCompatActivity {
                 req.execute(username,password);
             }
         });
+    }
+
+    public void loginSucces(){
+        Toast.makeText(this,"Registration successful. Please log in with your new account", Toast.LENGTH_LONG).show();
     }
 
     public void setRegisterResults(String results){

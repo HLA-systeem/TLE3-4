@@ -2,6 +2,7 @@ package nl.hr.tle4_mobile;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -76,7 +77,8 @@ public class RegisterRequest extends AsyncTask<String,Void,String> {
     @Override
     protected void onPostExecute(String result){
         System.out.println(result);
-        Intent in = new Intent(this.activityRef.get(), FlightStatusActivity.class);
+        this.activityRef.get().loginSucces();
+        Intent in = new Intent(this.activityRef.get(), LoginActivity.class);
         this.activityRef.get().startActivity(in);
     }
 
