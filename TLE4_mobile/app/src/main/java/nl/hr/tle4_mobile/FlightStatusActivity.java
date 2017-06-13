@@ -79,25 +79,10 @@ public class FlightStatusActivity extends AppCompatActivity{
         this.layoutWaiters = (RelativeLayout)findViewById(R.id.layout_waiters);
 
         this.startUserTimer();
+        this.countDownPartial.start();
+        this.countDownFinal.start();
 
-
-        layout.remove();
-
-        this.timer2= (TextView)findViewById(R.id.othersTime);
-        this.countDown2 = new CountDownTimer(60*2000,1000){
-            @Override
-            public void onTick(long millisUntilFinished) {
-                FlightStatusActivity.this.timer2.setText("Others estimated luggage waiting time: \n" + (millisUntilFinished  / 1000) + " Seconds");
-            }
-
-            @Override
-            public void onFinish() {
-                FlightStatusActivity.this.timer2.setText("The other person's luggage will arrive now.");
-            }
-        };
-
-        this.countDown.start();
-        this.countDown2.start();
+        this.showOtherTimers();
     }
 
     public void showNotification(){
@@ -161,10 +146,11 @@ public class FlightStatusActivity extends AppCompatActivity{
                 timeTillNext.setText("All your luggage has arrived, thank you for your patience.");
                 FlightStatusActivity.this.layoutWaiters.removeView(timeTillNext);
                 //send request to remove user.
-
             }
         };
+    }
 
+    private void showOtherTimers(){
 
     }
 
