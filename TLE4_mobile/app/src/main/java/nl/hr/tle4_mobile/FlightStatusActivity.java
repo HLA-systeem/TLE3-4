@@ -13,7 +13,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FlightStatusActivity extends AppCompatActivity{
 
@@ -22,10 +27,12 @@ public class FlightStatusActivity extends AppCompatActivity{
     String flightName = "KL0808";
     String schipholData;
 
-    TextView timer;
-    CountDownTimer countDown;
-    TextView timer2;
-    CountDownTimer countDown2;
+    RelativeLayout layoutWaiters;
+    ArrayList<Long> userWaitTimes;
+    Long totalWaitTime;
+    CountDownTimer countDownPartial;
+    CountDownTimer countDownFinal;
+
     TextView flightStats;
 
     private NotificationCompat.Builder noti;
@@ -48,6 +55,11 @@ public class FlightStatusActivity extends AppCompatActivity{
         SchipholApi as = new SchipholApi(this);
         as.execute("https://api.schiphol.nl/public-flights/flights?app_id=51e64f75&app_key=e7aa5d807f1406029fe3b79dd35e65ef&flightname=" + this.flightName + "&includedelays=false&page=0&sort=%2Bscheduletime");
 
+        this.userWaitTimes = new ArrayList();
+        this.userWaitTimes.add(1000L *60L); //deze bagage tijden zullen dynamisch worden toegevoegd. //millisecs (1000ms*60ms = 1 minuut) // L == long datatype
+        this.userWaitTimes.add(3000L *60L);
+        this.userWaitTimes.add(1500L *60L);
+
         this.noti = new NotificationCompat.Builder(this);
         this.notiID = 999;
         this.noti.setAutoCancel(true);
@@ -57,7 +69,6 @@ public class FlightStatusActivity extends AppCompatActivity{
     }
 
     public void setInfo(String results){
-
         this.schipholData = results;
         this.flightStats = (TextView)findViewById(R.id.FlightStatus);
         flightStats.setText(this.schipholData);
@@ -65,28 +76,18 @@ public class FlightStatusActivity extends AppCompatActivity{
     }
 
     private void startTimers(){
-        this.timer= (TextView)findViewById(R.id.yourTime);
-        this.countDown = new CountDownTimer(60*500,1000){
+        this.layoutWaiters = (RelativeLayout)findViewById(R.id.layout_waiters);
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-                FlightStatusActivity.this.timer.setText("Estimated luggage arrival: \r\n" + (millisUntilFinished  / 1000) + " Seconds");
-            }
+        this.startUserTimer();
 
-            @Override
-            public void onFinish() {
-                FlightStatusActivity.this.timer.setText("Your luggage will arrive now.");
-                FlightStatusActivity.this.showNotification();
-            }
-        };
 
+        layout.remove();
 
         this.timer2= (TextView)findViewById(R.id.othersTime);
         this.countDown2 = new CountDownTimer(60*2000,1000){
-
             @Override
             public void onTick(long millisUntilFinished) {
-                FlightStatusActivity.this.timer2.setText("Others estimated luggage waiting time: \r\n" + (millisUntilFinished  / 1000) + " Seconds");
+                FlightStatusActivity.this.timer2.setText("Others estimated luggage waiting time: \n" + (millisUntilFinished  / 1000) + " Seconds");
             }
 
             @Override
@@ -121,6 +122,50 @@ public class FlightStatusActivity extends AppCompatActivity{
     public void findAct(View v){
         Intent i = new Intent(this, ActivietiesActivity.class);
         startActivity(i);
+    }
+
+    private void startUserTimer(){
+
+        final TextView timeTillNext = (TextView)findViewById(R.id.text_tillNext);
+        int currentLug = 0;
+        final List uWTL = Arrays.asList(this.userWaitTimes);
+        if(currentLug < uWTL.size()){
+            currentLug+=1;
+            this.countDownPartial = new CountDownTimer(uWTL.indexOf(currentLug),1000){
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    timeTillNext.setText("Your next luggage will arrive in: \n" + (millisUntilFinished / 1000) + " Seconds");
+                    //send time and long + lat;
+                }
+
+                @Override
+                public void onFinish() {
+                    timeTillNext.setText("Some of your luggage arrives now.");
+                    FlightStatusActivity.this.showNotification();
+                }
+            };
+        }
+
+        for(Long time : this.userWaitTimes){
+            this.totalWaitTime += time;
+        }
+
+        this.countDownFinal = new CountDownTimer( this.totalWaitTime,1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeTillNext.setText("For all your luggage, you will have to wait: " + (millisUntilFinished / 1000) + " Seconds");
+            }
+
+            @Override
+            public void onFinish() {
+                timeTillNext.setText("All your luggage has arrived, thank you for your patience.");
+                FlightStatusActivity.this.layoutWaiters.removeView(timeTillNext);
+                //send request to remove user.
+
+            }
+        };
+
+
     }
 
 }
