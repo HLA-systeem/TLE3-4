@@ -151,7 +151,9 @@ public class FlightStatusActivity extends AppCompatActivity{
     }
 
     private void showOtherTimers(){
-
+        //getLocation of nearby users + there partial wait time;
+        //show it on the relative layout.
+        //add/substract dp's on the x/y postion based on the long&lat differences.
     }
 
 }
