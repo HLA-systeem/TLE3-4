@@ -127,6 +127,7 @@ public class FlightStatusActivity extends AppCompatActivity{
                 public void onFinish() {
                     timeTillNext.setText("Some of your luggage arrives now.");
                     FlightStatusActivity.this.showNotification();
+                    countDownPartial.start();
                 }
             };
         }
