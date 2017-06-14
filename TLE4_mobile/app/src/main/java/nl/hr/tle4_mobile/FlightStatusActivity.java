@@ -70,7 +70,7 @@ public class FlightStatusActivity extends AppCompatActivity{
 
     public void setInfo(String results){
         this.schipholData = results;
-        this.flightStats = (TextView)findViewById(R.id.FlightStatus);
+        this.flightStats = (TextView)findViewById(R.id.text_flightStatus);
         flightStats.setText(this.schipholData);
 
     }
