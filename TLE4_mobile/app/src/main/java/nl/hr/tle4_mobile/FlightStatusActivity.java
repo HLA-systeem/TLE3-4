@@ -75,16 +75,6 @@ public class FlightStatusActivity extends AppCompatActivity{
 
     }
 
-    private void startTimers(){
-        this.layoutWaiters = (RelativeLayout)findViewById(R.id.layout_waiters);
-
-        this.startUserTimer();
-        this.countDownPartial.start();
-        this.countDownFinal.start();
-
-        this.showOtherTimers();
-    }
-
     public void showNotification(){
         this.noti.setSmallIcon(R.mipmap.ic_launcher);
         this.noti.setTicker("So this is what they call a ticker.");
@@ -109,14 +99,24 @@ public class FlightStatusActivity extends AppCompatActivity{
         startActivity(i);
     }
 
+    private void startTimers(){
+        this.layoutWaiters = (RelativeLayout)findViewById(R.id.layout_waiters);
+
+        this.startUserTimer();
+        this.countDownPartial.start();
+        //this.countDownFinal.start();
+
+        this.showOtherTimers();
+    }
+
+
     private void startUserTimer(){
 
         final TextView timeTillNext = (TextView)findViewById(R.id.text_tillNext);
         int currentLug = 0;
-        final List uWTL = Arrays.asList(this.userWaitTimes);
-        if(currentLug < uWTL.size()){
+        if(currentLug < this.userWaitTimes.size()){
             currentLug+=1;
-            this.countDownPartial = new CountDownTimer(uWTL.indexOf(currentLug),1000){
+            this.countDownPartial = new CountDownTimer(this.userWaitTimes.get(currentLug),1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timeTillNext.setText("Your next luggage will arrive in: \n" + (millisUntilFinished / 1000) + " Seconds");
@@ -130,7 +130,7 @@ public class FlightStatusActivity extends AppCompatActivity{
                 }
             };
         }
-
+/*
         for(Long time : this.userWaitTimes){
             this.totalWaitTime += time;
         }
@@ -147,7 +147,7 @@ public class FlightStatusActivity extends AppCompatActivity{
                 FlightStatusActivity.this.layoutWaiters.removeView(timeTillNext);
                 //send request to remove user.
             }
-        };
+        };*/
     }
 
     private void showOtherTimers(){
