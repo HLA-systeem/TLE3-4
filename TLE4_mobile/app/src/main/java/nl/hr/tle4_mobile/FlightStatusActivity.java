@@ -3,42 +3,41 @@ package nl.hr.tle4_mobile;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class FlightStatusActivity extends AppCompatActivity{
 
-    String API_KEY = "e7aa5d807f1406029fe3b79dd35e65ef";
-    String API_ID = "51e64f75";
-    String flightName = "KL0808";
-    String schipholData;
+    private String API_KEY = "e7aa5d807f1406029fe3b79dd35e65ef";
+    private String API_ID = "51e64f75";
+    private String flightName = "KL0808";
+    private String schipholData;
 
-    RelativeLayout layoutWaiters;
-    ArrayList<Long> userWaitTimes;
-    Long totalWaitTime;
-    CountDownTimer countDownPartial;
-    CountDownTimer countDownFinal;
+    private RelativeLayout layoutWaiters;
+    private ArrayList<Long> userWaitTimes;
+    private Long totalWaitTime;
+    private CountDownTimer countDownPartial;
+    private CountDownTimer countDownFinal;
 
-    TextView flightStats;
+    private TextView flightStats;
 
     private NotificationCompat.Builder noti;
     private int notiID;
     private Uri notiSound;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,10 @@ public class FlightStatusActivity extends AppCompatActivity{
 
         SchipholApi as = new SchipholApi(this);
         as.execute("https://api.schiphol.nl/public-flights/flights?app_id=51e64f75&app_key=e7aa5d807f1406029fe3b79dd35e65ef&flightname=" + this.flightName + "&includedelays=false&page=0&sort=%2Bscheduletime");
+
+
+
+        this.totalWaitTime = 0L;
 
         this.userWaitTimes = new ArrayList();
         this.userWaitTimes.add(1000L *60L); //deze bagage tijden zullen dynamisch worden toegevoegd. //millisecs (1000ms*60ms = 1 minuut) // L == long datatype
@@ -104,7 +107,7 @@ public class FlightStatusActivity extends AppCompatActivity{
 
         this.startUserTimer();
         this.countDownPartial.start();
-        //this.countDownFinal.start();
+        this.countDownFinal.start();
 
         this.showOtherTimers();
     }
@@ -113,6 +116,8 @@ public class FlightStatusActivity extends AppCompatActivity{
     private void startUserTimer(){
 
         final TextView timeTillNext = (TextView)findViewById(R.id.text_tillNext);
+        final TextView timeTillTotal = (TextView)findViewById(R.id.text_totalWaitTime);
+
         int currentLug = 0;
         if(currentLug < this.userWaitTimes.size()){
             currentLug+=1;
@@ -125,30 +130,29 @@ public class FlightStatusActivity extends AppCompatActivity{
 
                 @Override
                 public void onFinish() {
-                    timeTillNext.setText("Some of your luggage arrives now.");
                     FlightStatusActivity.this.showNotification();
                     countDownPartial.start();
                 }
             };
         }
-/*
+
         for(Long time : this.userWaitTimes){
             this.totalWaitTime += time;
         }
 
-        this.countDownFinal = new CountDownTimer( this.totalWaitTime,1000){
+        this.countDownFinal = new CountDownTimer(this.totalWaitTime,1000){
             @Override
             public void onTick(long millisUntilFinished) {
-                timeTillNext.setText("For all your luggage, you will have to wait: " + (millisUntilFinished / 1000) + " Seconds");
+                timeTillTotal.setText("For all your luggage,\n you will have to wait: " + (millisUntilFinished / 1000) + " Seconds");
             }
 
             @Override
             public void onFinish() {
-                timeTillNext.setText("All your luggage has arrived, thank you for your patience.");
+                timeTillTotal.setText("All your luggage has arrived, thank you for your patience.");
                 FlightStatusActivity.this.layoutWaiters.removeView(timeTillNext);
                 //send request to remove user.
             }
-        };*/
+        };
     }
 
     private void showOtherTimers(){
@@ -156,5 +160,9 @@ public class FlightStatusActivity extends AppCompatActivity{
         //show it on the relative layout.
         //add/substract dp's on the x/y postion based on the long&lat differences.
     }
+
+
+
+
 
 }
