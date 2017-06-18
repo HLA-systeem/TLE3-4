@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:id="text_flightInfo"
+    android:title="Flight Information"/>
+
+    <item
+        android:id="text_owt"
+        android:title="Overview of Wait Times"/>
+
+    <item
+        android:id="text_settings"
+        android:title="Overview of wait times"/>
+
+    <item
+        android:id="text_passTimeActs"
+        android:title="Activities to pass the time"/>
+</menu>
