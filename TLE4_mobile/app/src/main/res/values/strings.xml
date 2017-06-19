@@ -11,5 +11,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="flight_number">Please enter your flight number below so that we can get your information.</string>
+    <string name="flight_number">Please enter your flight number below:</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

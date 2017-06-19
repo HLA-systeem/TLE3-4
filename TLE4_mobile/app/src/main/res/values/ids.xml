@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="text_flightInfo" type="id">text_flightInfo</item>
+    <item name="text_owt" type="id">text_owt</item>
+    <item name="text_settings" type="id">text_settings</item>
+    <item name="text_passTimeActs" type="id">text_passTimeActs</item>
+</resources>
