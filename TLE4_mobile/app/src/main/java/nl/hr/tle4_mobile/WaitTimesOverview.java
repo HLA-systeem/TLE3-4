@@ -92,61 +92,42 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         Constants.luggageTag = "DOC2F973";
         Constants.luggageArrival = "whatever";
 
-        if(Constants.luggageArrival == null){
-            System.out.println("lugAr");
-            this.handler.postDelayed(new Runnable() {
-                public void run() {
-                    WaitTimesOverview.this.refresh();
-                }
-            }, 5000);
+
+        this.checkLugs();
+    }
+
+    private void checkLugs(){
+        //roepLugLocReqAan
+        this.getTimesByTag();
+        this.handler.postDelayed(new Runnable() {
+            public void run() {
+                WaitTimesOverview.this.checkLugs();
+            }
+        }, 5000);
+    }
+
+    private void getTimesByTag(){
+        if(!Constants.luggageID2.equals("")){
+            if (Constants.luggageTag.equals(Constants.luggageID1)){
+                Long waitTime1 = Constants.getluggageIDs().get(Constants.luggageID1);
+                this.userWaitTimes.add(waitTime1);
+                this.startTimers();
+            }
+            if( Constants.luggageTag.equals(Constants.luggageID2)){
+                Long waitTime2 = Constants.getluggageIDs().get(Constants.luggageID2);
+                this.userWaitTimes.add(waitTime2);
+                this.startTimers();
+            }
         }
-
-
-        else {
-            if(!Constants.luggageID2.equals("")){
+        else{
+            if (!Constants.luggageID1.equals("")){
                 if (Constants.luggageTag.equals(Constants.luggageID1)){
                     Long waitTime1 = Constants.getluggageIDs().get(Constants.luggageID1);
                     this.userWaitTimes.add(waitTime1);
                     this.startTimers();
                 }
-                if( Constants.luggageTag.equals(Constants.luggageID2)){
-                    Long waitTime2 = Constants.getluggageIDs().get(Constants.luggageID2);
-                    this.userWaitTimes.add(waitTime2);
-                    this.startTimers();
-                }
-                else{
-                    System.out.println(".luggageID2 == null");
-                    this.handler.postDelayed(new Runnable() {
-                        public void run() {
-                            WaitTimesOverview.this.refresh();
-                        }
-                    }, 5000);
-                }
-            }
-            else{
-                if (!Constants.luggageID1.equals("")){
-                    if (Constants.luggageTag.equals(Constants.luggageID1)){
-                        Long waitTime1 = Constants.getluggageIDs().get(Constants.luggageID1);
-                        this.userWaitTimes.add(waitTime1);
-                        this.startTimers();
-                    }
-                }
-                else{
-                    System.out.println(".luggageID1 == null");
-                    this.handler.postDelayed(new Runnable() {
-                        public void run() {
-                            WaitTimesOverview.this.refresh();
-                        }
-                    }, 5000);
-                }
             }
         }
-
-    }
-
-    private void refresh(){
-        this.finish();
-        this.startActivity(getIntent());
     }
 
 
