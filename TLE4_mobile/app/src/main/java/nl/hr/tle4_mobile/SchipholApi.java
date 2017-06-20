@@ -1,5 +1,6 @@
 package nl.hr.tle4_mobile;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import org.json.JSONArray;
@@ -18,10 +19,10 @@ import java.net.URL;
  */
 
 public class SchipholApi extends AsyncTask<String, Void, String> {
-    private WeakReference<FlightStatusActivity> flightActivity;
+    private WeakReference<FlightActivity> activityRef;
 
-    public SchipholApi(FlightStatusActivity activity){
-        flightActivity = new WeakReference<FlightStatusActivity>(activity);
+    public SchipholApi(FlightActivity activity){
+        this.activityRef= new WeakReference<FlightActivity>(activity);
     }
 
     @Override
@@ -63,7 +64,6 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
         super.onPostExecute(result);
 
         String results;
@@ -102,8 +102,9 @@ public class SchipholApi extends AsyncTask<String, Void, String> {
                         + "Baggage belt: " + belt + "\r\n"
                         + "Estimated time on belt: " + estimatedTimeOnBelt;
 
-                flightActivity.get().setInfo(results);
+                Constants.flightInfo = results;
 
+                this.activityRef.get().showFlightInfo();
             }
 
 

@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-    android:id="@id/text_flightInfo"
-    android:title="Flight Information"/>
+    <group android:checkableBehavior="single">
+        <item
+        android:id="@id/nav_flightInfo"
+        android:title="Flight Information"
+        android:icon="@mipmap/ic_flight_white_24dp"/>
 
-    <item
-        android:id="@id/text_owt"
-        android:title="Overview of Wait Times"/>
+        <item
+            android:id="@id/nav_owt"
+            android:title="Overview of Wait Times"
+            android:icon="@mipmap/ic_schedule_white_24dp"
+            android:textColor="#FFFFF0"/>
 
-    <item
-        android:id="@id/text_settings"
-        android:title="Overview of wait times"/>
+        <item
+            android:id="@id/nav_passTimeActs"
+            android:title="Activities to pass the time"
+            android:icon="@mipmap/ic_near_me_white_24dp"
+            android:textColor="#FFFFF0"/>
 
-    <item
-        android:id="@id/text_passTimeActs"
-        android:title="Activities to pass the time"/>
+        <item
+            android:id="@id/nav_settings"
+            android:title="Settings"
+            android:icon="@mipmap/ic_settings_white_24dp"
+            android:textColor="#FFFFF0"/>
+    </group>
 </menu>

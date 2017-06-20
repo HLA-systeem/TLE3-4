@@ -1,6 +1,5 @@
 package nl.hr.tle4_mobile;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -80,7 +79,7 @@ public class LoginRequest extends AsyncTask<String,Void,String> {
         System.out.println("\"" + this.activityRef.get().getUsername() + "\"");
         this.activityRef.get().setLoginResults(result);
         if(result.equals("\"" + this.activityRef.get().getUsername() + "\"")){
-            Intent in = new Intent(this.activityRef.get(), SearchActivity.class);
+            Intent in = new Intent(this.activityRef.get(), FlightActivity.class);
             this.activityRef.get().startActivity(in);
         }
     }

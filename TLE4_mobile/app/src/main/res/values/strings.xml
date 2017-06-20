@@ -14,4 +14,10 @@
     <string name="flight_number">Please enter your flight number below:</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="title_activity_drawer">Drawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
