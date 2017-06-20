@@ -75,13 +75,6 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         this.totalWaitTime = 0L;
         this.userWaitTimes = new ArrayList();
 
-        if(Constants.luggageID1 != null) {
-
-        }
-
-        if(Constants.luggageID2 != null){
-
-        }
 
         this.noti = new NotificationCompat.Builder(this);
         this.notiID = 999;
@@ -89,7 +82,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         //new LugLocRequest();
-        Constants.luggageTag = "DOC2F973";
+        Constants.luggageTag = "163A84A5";
         Constants.luggageArrival = "whatever";
 
 
@@ -98,7 +91,10 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
 
     private void checkLugs(){
         //roepLugLocReqAan
-        this.getTimesByTag();
+        if(!Constants.luggageTag.equals(Constants.luggageTagPrev)) {
+            this.getTimesByTag();
+            Constants.luggageTagPrev = Constants.luggageTag;
+        }
         this.handler.postDelayed(new Runnable() {
             public void run() {
                 WaitTimesOverview.this.checkLugs();
@@ -155,7 +151,6 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         this.layoutWaiters = (RelativeLayout)findViewById(R.id.layout_waiters);
 
         this.startUserTimer();
-        this.countDownPartial.start();
         this.countDownFinal.start();
 
         this.showOtherTimers();
@@ -167,9 +162,9 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         final TextView timeTillNext = (TextView)findViewById(R.id.text_tillNext);
         final TextView timeTillTotal = (TextView)findViewById(R.id.text_totalWaitTime);
 
-        int currentLug = 0;
-        if(currentLug < this.userWaitTimes.size()){
-            this.countDownPartial = new CountDownTimer(this.userWaitTimes.get(currentLug),1000){
+
+        if(Constants.currentLug < this.userWaitTimes.size()){
+            this.countDownPartial = new CountDownTimer(this.userWaitTimes.get(Constants.currentLug),1000){
                 @Override
                 public void onTick(long millisUntilFinished) {
                     timeTillNext.setText("Your next luggage will arrive in: \n" + (millisUntilFinished / 1000) + " Seconds");
@@ -178,11 +173,16 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
 
                 @Override
                 public void onFinish() {
+                    Constants.currentLug+=1;
                     WaitTimesOverview.this.showNotification();
-                    countDownPartial.start();
+                    WaitTimesOverview.this.startUserTimer();
                 }
             };
-            currentLug+=1;
+            this.countDownPartial.start();
+        }
+
+        else{
+            timeTillNext.setText("Last luggage has arrived!");
         }
 
         for(Long time : this.userWaitTimes){
