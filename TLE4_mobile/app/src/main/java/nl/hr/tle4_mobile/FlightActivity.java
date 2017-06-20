@@ -52,10 +52,8 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
                 this.sideMenu.getDL().openDrawer(Gravity.START);
                 Constants.flight = this.flightNum.getText().toString();
                 Constants.luggageID1 = this.tagInput1.getText().toString();
-                System.out.println(Constants.luggageID1);
-                if(FlightActivity.this.tagInput2.getText().toString() != null){
-                    Constants.luggageID2 = this.tagInput2.getText().toString();
-                }
+                Constants.luggageID2 = this.tagInput2.getText().toString();
+
                 this.getFlightInfromation();
 
                 Intent wto = new Intent(this, WaitTimesOverview.class);

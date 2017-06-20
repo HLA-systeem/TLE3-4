@@ -9,8 +9,8 @@ public class Constants {
     public static String flight = "KL0808";
     public static String flightInfo;
     public static String luggageArrival;
-    public static String luggageTag;
-    public static String luggageTagPrev;
+    public static String luggageTag = "";
+    public static String luggageTagPrev = "p";
     //{"163A84A5", "703DFA73","DOC2F973","408E274","25AA2B11"};
     public static String luggageID1 = "";
     public static String luggageID2 = "";

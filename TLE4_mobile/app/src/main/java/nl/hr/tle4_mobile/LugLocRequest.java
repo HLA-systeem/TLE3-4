@@ -16,7 +16,7 @@ import java.net.URL;
 public class LugLocRequest extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... urls) {
-
+        System.out.println();
         String result = "";
         URL url;
         HttpURLConnection urlConnection = null;
@@ -77,6 +77,7 @@ public class LugLocRequest extends AsyncTask<String,Void,String> {
 
                 Constants.luggageArrival = time;
                 Constants.luggageTag = UID;
+                System.out.println(UID);
             }
 
         } catch (JSONException e) {

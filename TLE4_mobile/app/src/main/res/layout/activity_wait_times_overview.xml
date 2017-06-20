@@ -36,7 +36,7 @@
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        android:text="Your luggage hasn't ben placed on the carousel yet."
+        android:text="Your luggage hasn't been placed on the carousel yet."
         android:textColor="#FFFFF0"
         android:textStyle="bold" />
 

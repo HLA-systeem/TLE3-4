@@ -41,6 +41,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
     private Long totalWaitTime;
     private CountDownTimer countDownPartial;
     private CountDownTimer countDownFinal;
+    public Boolean timersRunning;
 
     private TextView flightStats;
 
@@ -71,6 +72,8 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         }
         this.createLocationRequest();
 
+        this.timersRunning = false;
+
 
         this.totalWaitTime = 0L;
         this.userWaitTimes = new ArrayList();
@@ -81,16 +84,13 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         this.noti.setAutoCancel(true);
         this.notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        //new LugLocRequest();
-        Constants.luggageTag = "163A84A5";
-        Constants.luggageArrival = "whatever";
-
 
         this.checkLugs();
     }
 
     private void checkLugs(){
-        //roepLugLocReqAan
+        LugLocRequest lugReq = new LugLocRequest();
+        lugReq.execute("https://api.thingspeak.com/channels/289714/feeds.json");
         if(!Constants.luggageTag.equals(Constants.luggageTagPrev)) {
             this.getTimesByTag();
             Constants.luggageTagPrev = Constants.luggageTag;
@@ -104,15 +104,21 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
 
     private void getTimesByTag(){
         if(!Constants.luggageID2.equals("")){
-            if (Constants.luggageTag.equals(Constants.luggageID1)){
+            if(Constants.luggageTag.equals(Constants.luggageID1)){
                 Long waitTime1 = Constants.getluggageIDs().get(Constants.luggageID1);
                 this.userWaitTimes.add(waitTime1);
-                this.startTimers();
+                this.totalWaitTime += waitTime1;
+                if(this.timersRunning == false) {
+                    this.startTimers();
+                }
             }
             if( Constants.luggageTag.equals(Constants.luggageID2)){
                 Long waitTime2 = Constants.getluggageIDs().get(Constants.luggageID2);
                 this.userWaitTimes.add(waitTime2);
-                this.startTimers();
+                this.totalWaitTime += waitTime2;
+                if(this.timersRunning == false) {
+                    this.startTimers();
+                }
             }
         }
         else{
@@ -120,7 +126,10 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                 if (Constants.luggageTag.equals(Constants.luggageID1)){
                     Long waitTime1 = Constants.getluggageIDs().get(Constants.luggageID1);
                     this.userWaitTimes.add(waitTime1);
-                    this.startTimers();
+                    this.totalWaitTime += waitTime1;
+                    if(this.timersRunning == false) {
+                        this.startTimers();
+                    }
                 }
             }
         }
@@ -166,13 +175,15 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         if(Constants.currentLug < this.userWaitTimes.size()){
             this.countDownPartial = new CountDownTimer(this.userWaitTimes.get(Constants.currentLug),1000){
                 @Override
-                public void onTick(long millisUntilFinished) {
+                public void onTick(long millisUntilFinished) { //needs to be a runnable in order to update it while it's running
+                    WaitTimesOverview.this.timersRunning = true;
                     timeTillNext.setText("Your next luggage will arrive in: \n" + (millisUntilFinished / 1000) + " Seconds");
                     //send time and long + lat;
                 }
 
                 @Override
                 public void onFinish() {
+                    WaitTimesOverview.this.timersRunning = false;
                     Constants.currentLug+=1;
                     WaitTimesOverview.this.showNotification();
                     WaitTimesOverview.this.startUserTimer();
