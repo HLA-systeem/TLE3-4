@@ -42,6 +42,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
     private CountDownTimer countDownPartial;
     private CountDownTimer countDownFinal;
     public Boolean timersRunning;
+    public Long timeMem;
 
     private TextView flightStats;
 
@@ -73,8 +74,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         this.createLocationRequest();
 
         this.timersRunning = false;
-
-
+        this.timeMem = 0L;
         this.totalWaitTime = 0L;
         this.userWaitTimes = new ArrayList();
 
@@ -111,6 +111,9 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                 if(this.timersRunning == false) {
                     this.startTimers();
                 }
+                else{
+                    this.updateFinalTimer();
+                }
             }
             if( Constants.luggageTag.equals(Constants.luggageID2)){
                 Long waitTime2 = Constants.getluggageIDs().get(Constants.luggageID2);
@@ -118,6 +121,9 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                 this.totalWaitTime += waitTime2;
                 if(this.timersRunning == false) {
                     this.startTimers();
+                }
+                else{
+                    this.updateFinalTimer();
                 }
             }
         }
@@ -129,6 +135,9 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                     this.totalWaitTime += waitTime1;
                     if(this.timersRunning == false) {
                         this.startTimers();
+                    }
+                    else{
+                        this.updateFinalTimer();
                     }
                 }
             }
@@ -196,11 +205,28 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
             timeTillNext.setText("Last luggage has arrived!");
         }
 
-        for(Long time : this.userWaitTimes){
-            this.totalWaitTime += time;
-        }
-
         this.countDownFinal = new CountDownTimer(this.totalWaitTime,1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                WaitTimesOverview.this.timeMem += 1;
+                timeTillTotal.setText("For all your luggage,\n you will have to wait: " + (millisUntilFinished / 1000) + " Seconds");
+            }
+
+            @Override
+            public void onFinish() {
+                timeTillTotal.setText("All your luggage has arrived, thank you for your patience.");
+                WaitTimesOverview.this.layoutWaiters.removeView(timeTillNext); //waarom werkt dit niet?
+                //send request to remove user.
+            }
+        };
+    }
+
+    private void updateFinalTimer(){
+        this.countDownFinal.cancel();
+        final TextView timeTillNext = (TextView)findViewById(R.id.text_tillNext);
+        final TextView timeTillTotal = (TextView)findViewById(R.id.text_totalWaitTime);
+
+        this.countDownFinal = new CountDownTimer(this.totalWaitTime - WaitTimesOverview.this.timeMem,1000){
             @Override
             public void onTick(long millisUntilFinished) {
                 timeTillTotal.setText("For all your luggage,\n you will have to wait: " + (millisUntilFinished / 1000) + " Seconds");
@@ -213,6 +239,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                 //send request to remove user.
             }
         };
+        this.countDownFinal.start();
     }
 
     private void showOtherTimers(){
