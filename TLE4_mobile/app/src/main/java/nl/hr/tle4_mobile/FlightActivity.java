@@ -1,12 +1,16 @@
 package nl.hr.tle4_mobile;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +25,8 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     private EditText tagInput1;
     private EditText tagInput2;
     private Button search;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +48,41 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
         this.tagInput2 = (EditText)findViewById(R.id.input_lugID2);
         this.search = (Button)findViewById(R.id.button_search);
 
+
         this.search.setOnClickListener(this);
+
     }
+
+    //functions for the Actionbar to communicate with the SideMenu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle sIT){
+        super.onPostCreate(sIT);
+        this.sideMenu.getToggle().syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        this.sideMenu.getToggle().onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+                case R.id.action_openDrawer:
+                    this.sideMenu.getDL().openDrawer(Gravity.START);
+                    break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onClick(View v){
@@ -64,17 +103,12 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(this.sideMenu.getToggle().onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     public void showFlightInfo(){
 
     }
+
+
 
     private void getFlightInfromation(){
         SchipholApi schipholApi = new SchipholApi(this);

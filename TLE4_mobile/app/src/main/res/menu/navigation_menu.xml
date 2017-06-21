@@ -2,26 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-        android:id="@id/nav_flightInfo"
-        android:title="Flight Information"
-        android:icon="@mipmap/ic_flight_white_24dp"/>
+            android:id="@id/nav_flightInfo"
+            android:title="Flight Information"
+            android:checked="false"
+            android:icon="@mipmap/ic_flight_white_24dp"/>
 
         <item
             android:id="@id/nav_owt"
             android:title="Overview of Wait Times"
             android:icon="@mipmap/ic_schedule_white_24dp"
-            android:textColor="#FFFFF0"/>
+            android:checked="false"/>
 
         <item
             android:id="@id/nav_passTimeActs"
             android:title="Activities to pass the time"
-            android:icon="@mipmap/ic_near_me_white_24dp"
-            android:textColor="#FFFFF0"/>
+            android:checked="false"
+            android:icon="@mipmap/ic_near_me_white_24dp"/>
 
         <item
             android:id="@id/nav_settings"
             android:title="Settings"
-            android:icon="@mipmap/ic_settings_white_24dp"
-            android:textColor="#FFFFF0"/>
+            android:checked="false"
+            android:icon="@mipmap/ic_settings_white_24dp"/>
     </group>
 </menu>
