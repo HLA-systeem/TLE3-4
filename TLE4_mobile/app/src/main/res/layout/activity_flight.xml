@@ -24,7 +24,7 @@
             />
 
         <RelativeLayout
-            android:id="@+id/activity_search"
+            android:id="@+id/activity_flight"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#9370DB">
