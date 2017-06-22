@@ -2,9 +2,12 @@ package nl.hr.tle4_mobile;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 public class ActivietiesActivity extends AppCompatActivity {
     Button callTaxi;
@@ -26,7 +30,12 @@ public class ActivietiesActivity extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_activieties);
+
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_wta);
+        bg.setBackgroundColor(Color.parseColor(getPrefs.getString("appColor","#9370DB")));
 
         this.sideMenu = new SideMenu(this);
         callTaxi = (Button)findViewById(R.id.taxiButton);

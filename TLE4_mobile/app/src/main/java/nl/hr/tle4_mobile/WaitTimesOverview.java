@@ -4,13 +4,16 @@ import android.*;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.location.Location;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -67,7 +70,12 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_wait_times_overview);
+
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_wta);
+        bg.setBackgroundColor(Color.parseColor(getPrefs.getString("appColor","#9370DB")));
 
         this.sideMenu = new SideMenu(this);
 

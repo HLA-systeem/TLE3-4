@@ -1,6 +1,9 @@
 package nl.hr.tle4_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -22,6 +26,10 @@ public class RegisterActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_register);
+
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_register);
+        bg.setBackgroundColor(Color.parseColor(getPrefs.getString("appColor","#9370DB")));
 
         final EditText nameInput = (EditText) findViewById(R.id.input_username);
         final EditText passInput = (EditText) findViewById(R.id.input_password);

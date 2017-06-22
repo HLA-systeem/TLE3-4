@@ -52,6 +52,10 @@ public class SideMenu{
                         Intent pta = new Intent(SideMenu.this.activity, ActivietiesActivity.class);
                         SideMenu.this.activity.startActivity(pta);
                         break;
+                    case R.id.nav_settings:
+                        Intent set = new Intent(SideMenu.this.activity, SettingsActivity.class);
+                        SideMenu.this.activity.startActivity(set);
+                        break;
                 }
                 return false;
             }

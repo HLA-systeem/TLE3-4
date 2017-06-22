@@ -1,7 +1,10 @@
 package nl.hr.tle4_mobile;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +34,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_login);
+
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_login);
+        bg.setBackgroundColor(Color.parseColor(getPrefs.getString("appColor","#9370DB")));
 
         this.nameInput = (EditText)findViewById(R.id.username);
         this.passInput = (EditText)findViewById(R.id.password);

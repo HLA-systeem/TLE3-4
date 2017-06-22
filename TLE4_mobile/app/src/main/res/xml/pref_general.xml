@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="#9370DB"
+        android:key="appColor"
+        android:summary="Change the color of this application"
+        android:title="@string/pref_appColor"
+        android:entries="@array/pref_appColor_options"
+        android:entryValues="@array/pref_appColor_values"/>
+
+</PreferenceScreen>
