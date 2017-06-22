@@ -30,6 +30,10 @@
         <activity
             android:name=".Drawer"
             android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".DrawerTemplate"
+            android:label="@string/title_activity_drawer_template"
             android:theme="@style/AppTheme"></activity>
     </application>
 

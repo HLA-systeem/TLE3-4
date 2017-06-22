@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Constants {
     public static String flight = "KL0808";
-    public static String flightInfo;
+    public static String flightInfo = "";
     public static String luggageArrival;
     public static String luggageTag = "";
     public static String luggageTagPrev = "p";

@@ -7,24 +7,27 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:background="#000000"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="nl.hr.tle4_mobile.FlightActivity">
+    tools:context="nl.hr.tle4_mobile.FlightActivity"
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/navigation_actionbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
         <RelativeLayout
             android:id="@+id/activity_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#9370DB"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:background="#9370DB">
 
 
             <TextView
@@ -33,20 +36,21 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="17dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="44dp"
                 android:text="@string/flight_number"
                 android:textColor="#FFFFF0"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/flightNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignLeft="@+id/input_lugID1"
+                android:layout_alignStart="@+id/input_lugID1"
                 android:layout_below="@+id/Flightname"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="21dp"
                 android:ems="10"
                 android:hint="KL0808"
                 android:inputType="textCapCharacters|textCapWords|textCapSentences|textPersonName"
@@ -59,8 +63,8 @@
                 android:id="@+id/input_lugID2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_alignRight="@+id/textView2"
                 android:layout_centerVertical="true"
                 android:ems="6"
                 android:hint="Luggage ID"
@@ -74,9 +78,12 @@
                 android:id="@+id/input_lugID1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_alignBaseline="@+id/input_lugID2"
+                android:layout_alignBottom="@+id/input_lugID2"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:layout_marginLeft="18dp"
+                android:layout_marginStart="18dp"
                 android:ems="6"
                 android:hint="Luggage ID"
                 android:inputType="textCapCharacters|textCapWords|textCapSentences|textPersonName"
@@ -89,25 +96,27 @@
                 android:id="@+id/button_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_marginBottom="16dp"
                 android:background="#FFFFF0"
                 android:clickable="false"
                 android:text="Search"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/Flightname"
+                android:layout_alignEnd="@+id/Flightname" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/flightNum"
-                android:layout_marginTop="27dp"
+                android:layout_above="@+id/input_lugID2"
+                android:layout_alignLeft="@+id/Flightname"
+                android:layout_alignStart="@+id/Flightname"
+                android:layout_marginBottom="26dp"
                 android:text="Please enter your luggage tags:"
+
                 android:textColor="#FFFFF0"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -120,21 +129,15 @@
                 android:textColor="#FFFFF0" />
 
         </RelativeLayout>
-
-        <include layout="@layout/navigation_actionbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:icon="@mipmap/ic_menu_white_24dp"
-            />
-
     </LinearLayout>
 
+
     <android.support.design.widget.NavigationView
-        android:layout_width="match_parent"
+        android:id="@+id/navigationview"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="#FFFFF0"
-        app:menu="@menu/navigation_menu"
         app:headerLayout="@layout/navigation_header"
-
+        app:menu="@menu/navigation_menu"
         android:layout_gravity="start" />
 </android.support.v4.widget.DrawerLayout>
