@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.location.Location;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -19,6 +20,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,8 +38,9 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 
 public class WaitTimesOverview extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
-    private Handler handler = new Handler();
+    private SideMenu sideMenu;
 
+    private Handler handler = new Handler();
     private RelativeLayout layoutWaiters;
     private ArrayList<Long> userWaitTimes;
     private Long totalWaitTime;
@@ -63,6 +68,8 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_wait_times_overview);
+
+        this.sideMenu = new SideMenu(this);
 
         if (this.googleApi == null) { //maak het GoogleAPIclient object als deze er niet is.
             this.googleApi = new GoogleApiClient.Builder(this)
@@ -309,5 +316,35 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
                 this.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
+    }
+
+    //functions for the Actionbar to communicate with the SideMenu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    protected void onPostCreate(Bundle sIT){
+        super.onPostCreate(sIT);
+        this.sideMenu.getToggle().syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        this.sideMenu.getToggle().onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_openDrawer:
+                this.sideMenu.getDL().openDrawer(Gravity.START);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

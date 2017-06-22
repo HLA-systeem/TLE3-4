@@ -21,7 +21,6 @@
         <include layout="@layout/navigation_actionbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:icon="@mipmap/ic_menu_white_24dp"
             />
 
         <RelativeLayout

@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class FlightActivity extends AppCompatActivity implements View.OnClickListener{
     private SideMenu sideMenu;
@@ -25,7 +26,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     private EditText tagInput1;
     private EditText tagInput2;
     private Button search;
-
+    private TextView flightStatus;
 
 
     @Override
@@ -34,23 +35,23 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_flight);
 
         this.sideMenu = new SideMenu(this);
-
-        if(Constants.flightInfo != null){
-            this.getFlightInfromation();
-        }
 
         this.flightNum = (EditText)findViewById(R.id.flightNum);
         this.tagInput1 = (EditText)findViewById(R.id.input_lugID1);
         this.tagInput2 = (EditText)findViewById(R.id.input_lugID2);
         this.search = (Button)findViewById(R.id.button_search);
-
+        this.flightStatus = (TextView) findViewById(R.id.text_flightStatus);
 
         this.search.setOnClickListener(this);
 
+        if(Constants.flightInfo != null){
+            if(!Constants.flightInfo.equals("")){
+                this.showFlightInfo();
+            }
+        }
     }
 
     //functions for the Actionbar to communicate with the SideMenu
@@ -88,15 +89,11 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         switch (v.getId()){
             case R.id.button_search:
-                this.sideMenu.getDL().openDrawer(Gravity.START);
                 Constants.flight = this.flightNum.getText().toString();
                 Constants.luggageID1 = this.tagInput1.getText().toString();
                 Constants.luggageID2 = this.tagInput2.getText().toString();
 
                 this.getFlightInfromation();
-
-                Intent wto = new Intent(this, WaitTimesOverview.class);
-                this.startActivity(wto);
 
                 break;
         }
@@ -105,7 +102,7 @@ public class FlightActivity extends AppCompatActivity implements View.OnClickLis
 
 
     public void showFlightInfo(){
-
+        this.flightStatus.setText(Constants.flightInfo);
     }
 
 

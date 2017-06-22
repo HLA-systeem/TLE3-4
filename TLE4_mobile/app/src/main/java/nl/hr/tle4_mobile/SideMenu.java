@@ -21,13 +21,13 @@ public class SideMenu{
 
     private NavigationView nv;
 
-    public SideMenu(final AppCompatActivity activity){
+    public SideMenu(AppCompatActivity activity){
         this.activity = activity;
         this.bar = (Toolbar) activity.findViewById(R.id.navigation_actionbar);
         this.activity.setSupportActionBar(this.bar);
 
         this.dl = (DrawerLayout) activity.findViewById(R.id.layout_drawer);
-        this.toggle = new ActionBarDrawerToggle(activity,this.dl,R.string.open,R.string.close);
+        this.toggle = new ActionBarDrawerToggle(this.activity,this.dl,R.string.open,R.string.close);
         this.dl.addDrawerListener(this.toggle);
 
         this.activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -41,11 +41,16 @@ public class SideMenu{
             public boolean onNavigationItemSelected(@NonNull MenuItem item){
                 switch (item.getItemId()){
                     case R.id.nav_flightInfo:
-                        SideMenu.this.dl.closeDrawer(Gravity.START);
+                        Intent fi = new Intent(SideMenu.this.activity, FlightActivity.class);
+                        SideMenu.this.activity.startActivity(fi);
                         break;
                     case R.id.nav_owt:
-                        Intent wto = new Intent(activity, WaitTimesOverview.class);
-                        activity.startActivity(wto);
+                        Intent wto = new Intent(SideMenu.this.activity, WaitTimesOverview.class);
+                        SideMenu.this.activity.startActivity(wto);
+                        break;
+                    case R.id.nav_passTimeActs:
+                        Intent pta = new Intent(SideMenu.this.activity, ActivietiesActivity.class);
+                        SideMenu.this.activity.startActivity(pta);
                         break;
                 }
                 return false;
