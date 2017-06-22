@@ -74,7 +74,7 @@ public class WaitTimesOverview extends AppCompatActivity implements GoogleApiCli
         setContentView(R.layout.activity_wait_times_overview);
 
         SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_wta);
+        RelativeLayout bg = (RelativeLayout)findViewById(R.id.main_wto);
         bg.setBackgroundColor(Color.parseColor(getPrefs.getString("appColor","#9370DB")));
 
         this.sideMenu = new SideMenu(this);

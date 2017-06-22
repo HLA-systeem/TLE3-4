@@ -24,18 +24,21 @@
     <string name="title_activity_settings">activity_settings</string>
 
     <!-- Strings related to Settings -->
-    <string name="pref_appColor">Set the color</string>
+    <string name="pref_appColor">Set application color</string>
     <string-array name="pref_appColor_options">
         <item>Purple</item>
         <item>Black</item>
         <item>Light Blue</item>
         <item>Dark Blue</item>
     </string-array>
-    <string-array name="pref_appColor_values"> <!--Reversed -->
-        <item>#00008B</item>
-        <item>#00BFFF</item>
-        <item>#000000</item>
+    <string-array name="pref_appColor_values">
         <item>#9370DB</item>
+        <item>#000000</item>
+        <item>#00BFFF</item>
+        <item>#00008B</item>
+
+
+
     </string-array>
 
 
